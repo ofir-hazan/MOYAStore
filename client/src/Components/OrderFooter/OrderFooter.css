@@ -1,0 +1,52 @@
+.orderFooterTotalPrice {
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+}
+
+.orderFooterContainer {
+    background-color: white;
+    margin-top: 20px;
+    display: flex;
+    /* border: 2px solid #eea243; */
+    border-radius: 5px;
+    padding: 20px;
+    align-items: center;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.orderFooterTotalPriceDesc {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.orderFooterTotal {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.orderFooterLeft {
+    display: flex;
+    align-items: center;
+}
+
+.orderFooterSend {
+    background-color: #00D775;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    line-height: 40px;
+    padding: 0 20px;
+    text-align: center;
+    border: 0;
+    margin-right: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.orderFooterSend:hover {
+    background: #00bd68;
+}
