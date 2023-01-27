@@ -1,5 +1,4 @@
 .products {
-  background-color: #f3f9f9;
   margin: auto;
   width: 70%;
   padding: 20px;
@@ -24,7 +23,6 @@
   flex-direction: column;
   align-content: center;
   align-items: center;
-  justify-content: center;
 }
 
 .cart {

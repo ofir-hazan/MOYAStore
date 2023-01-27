@@ -1,5 +1,4 @@
 import "./App.css";
-import HomePage from "./pages/Home/homePage";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Catalog from "./pages/Catalog/Catalog";
 import Cart from "./pages/Cart/Cart";
@@ -33,37 +32,36 @@ function App() {
     console.log(newCartProducts);
   }
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="App">
-              <Outlet />
-            </div>
-          }
-        >
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
           <Route
-            index
-            element={<Catalog products={catalogProducts} onAdd={onAdd} />}
-          />
-          <Route
-            path="cart"
+            path="/"
             element={
-              <Cart
-                products={cartProducts}
-                clearProducts={() => setCartProducts([])}
-              />
+              <div className="App">
+                <Outlet />
+              </div>
             }
-          />
-          <Route path="*" element={<div>wrong</div>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          >
+            <Route
+              index
+              element={<Catalog products={catalogProducts} onAdd={onAdd} />}
+            />
+            <Route
+              path="cart"
+              element={
+                <Cart
+                  products={cartProducts}
+                  clearProducts={() => setCartProducts([])}
+                />
+              }
+            />
+            <Route path="*" element={<div>wrong</div>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
-  // return (
-  //   <HomePage />
-  // );
 }
 
 export default App;
