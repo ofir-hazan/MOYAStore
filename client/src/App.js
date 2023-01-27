@@ -1,12 +1,13 @@
-import './App.css';
-import HomePage from './pages/Home/homePage'
+import "./App.css";
+import HomePage from "./pages/Home/homePage";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Catalog from "./pages/Catalog/Catalog";
 import Cart from "./pages/Cart/Cart";
 import { useEffect, useState } from "react";
+import { products } from "./fakeData";
 
 function App() {
-  const [catalogProducts, setCatalogProducts] = useState([]);
+  const [catalogProducts, setCatalogProducts] = useState(products);
 
   useEffect(() => {
     fetch("http://localhost:3001/products")
@@ -46,7 +47,15 @@ function App() {
             index
             element={<Catalog products={catalogProducts} onAdd={onAdd} />}
           />
-          <Route path="cart" element={<Cart products={cartProducts} clearProducts={() => setCartProducts([])} />} />
+          <Route
+            path="cart"
+            element={
+              <Cart
+                products={cartProducts}
+                clearProducts={() => setCartProducts([])}
+              />
+            }
+          />
           <Route path="*" element={<div>wrong</div>} />
         </Route>
       </Routes>
