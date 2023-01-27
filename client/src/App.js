@@ -3,11 +3,12 @@ import HomePage from './pages/Home/homePage'
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Catalog from "./pages/Catalog/Catalog";
 import Cart from "./pages/Cart/Cart";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from './Contexts/GlobalContext';
 
 function App() {
   const [catalogProducts, setCatalogProducts] = useState([]);
-
+  const { connectedUser } = useContext(GlobalContext);
   useEffect(() => {
     fetch("http://localhost:3001/products")
       .then((res) => res.json())
