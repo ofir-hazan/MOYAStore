@@ -4,7 +4,7 @@ import { ReactComponent as AddIcon } from "../../resources/add.svg";
 
 function Product(props) {
   const { onAdd, product } = props;
-  const { name, description, picture, price } = product;
+  const { name, description, image, price } = product;
   return (
     <div className="productContainer">
       <div className="productDescription">
@@ -13,7 +13,7 @@ function Product(props) {
         <div className="productPrice">{`${price.toFixed(2)} ₪`}</div>
       </div>
       <div className="productPictureContainer" onClick={onAdd}>
-        <img className="productPicture" src={picture} />
+        <img className="productPicture" src={image} />
         <AddIcon height={30} width={30} className="productAddIcon" />
       </div>
     </div>

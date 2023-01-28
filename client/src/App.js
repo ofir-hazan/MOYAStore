@@ -10,7 +10,7 @@ function App() {
   const [catalogProducts, setCatalogProducts] = useState([]);
   const { connectedUser } = useContext(GlobalContext);
   useEffect(() => {
-    fetch("http://localhost:3001/products")
+    fetch("http://localhost:3001/products/all")
       .then((res) => res.json())
       .then((data) => {
         setCatalogProducts(data);

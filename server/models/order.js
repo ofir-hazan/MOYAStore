@@ -1,17 +1,28 @@
+
 const mongoose = require('mongoose');
+
 const orderSchema = new mongoose.Schema({
-    products: {
-        type: Array,
+    _id: {
+        type: String,
         require: true
     },
-    additionalInfo: {
-        type: String
+    orderDate: {
+        type: Date,
+        require: true
     },
     totalPrice: {
         type: Number,
-        require: true,
+        require: true
+    },
+    userId: {
+        type: String,
+        require: true
     }
-})
+},
+    {
+        versionKey: false
+    })
 
 const Order = mongoose.model('orders', orderSchema);
+
 module.exports = Order;
