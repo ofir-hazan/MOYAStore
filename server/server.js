@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require("cors");
 require("dotenv").config();
+const methodOverride = require('method-override');
+const bodyParser = require('body-parser');
 const productRouter = require("./routes/productRouter");
 
 const port = process.env.PORT || 3001;
@@ -12,7 +14,9 @@ const corsOptions = {
   optionSuccessStatus: 200,
 }
 
+app.use(methodOverride('_method'));
 app.use(cors(corsOptions));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.status(200).end();
