@@ -1,0 +1,21 @@
+.container {
+    background-color: #f3e37c;
+    margin: auto;
+    width: 30%;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    flex: 1;
+}
+
+.form {
+    margin: 20px 0px;
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 10px;
+}
