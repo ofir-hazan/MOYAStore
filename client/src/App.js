@@ -5,6 +5,8 @@ import Catalog from "./pages/Catalog/Catalog";
 import Cart from "./pages/Cart/Cart";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from './Contexts/GlobalContext';
+import SignIn from './pages/SignIn/SignIn';
+import SignUp from './pages/SignUp/SignUp';
 
 function App() {
   const [catalogProducts, setCatalogProducts] = useState([]);
@@ -48,6 +50,8 @@ function App() {
             element={<Catalog products={catalogProducts} onAdd={onAdd} />}
           />
           <Route path="cart" element={<Cart products={cartProducts} clearProducts={() => setCartProducts([])} />} />
+          <Route path="signIn" element={<SignIn />} />
+          <Route path="signUp" element={<SignUp />} />
           <Route path="*" element={<div>wrong</div>} />
         </Route>
       </Routes>
