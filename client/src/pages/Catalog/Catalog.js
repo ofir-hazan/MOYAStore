@@ -9,9 +9,11 @@ function Catalog(props) {
 
   function renderProducts() {
     return products.map((product) => (
-      <div key={product.name}>
-        <Product product={product} onAdd={() => onAdd(product)} />
-      </div>
+      <Product
+        key={product.id}
+        product={product}
+        onAdd={() => onAdd(product)}
+      />
     ));
   }
   return (
@@ -24,11 +26,13 @@ function Catalog(props) {
           </div>
         </Link>
       </div>
-      {products?.length ? (
-        <> {renderProducts()}</>
-      ) : (
-        <div className="catalogNoProducts">אין מוצרים בקטלוג!</div>
-      )}
+      <div className="productsList">
+        {products?.length ? (
+          <> {renderProducts()}</>
+        ) : (
+          <div className="catalogNoProducts">אין מוצרים בקטלוג!</div>
+        )}
+      </div>
     </div>
   );
 }
