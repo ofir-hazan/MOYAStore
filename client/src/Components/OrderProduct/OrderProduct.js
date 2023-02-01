@@ -2,7 +2,7 @@ import React from 'react';
 import './OrderProduct.css';
 
 function OrderProduct(props) {
-    const {name, description, picture, price, quantity=1} = props.product;
+    const {name, description, image, price, quantity=1} = props.product;
     return (
         <div className='productContainer'>
             <div className='productDescription'>
@@ -17,7 +17,7 @@ function OrderProduct(props) {
                 </div>
             </div>
             <div className='productPictureContainer'>
-                <img className='productPicture' src={picture}/>
+                <img className='productPicture' src={image}/>
                 <div>
                     {`x${quantity}`}
                 </div>

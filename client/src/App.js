@@ -2,14 +2,17 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Catalog from "./pages/Catalog/Catalog";
 import Cart from "./pages/Cart/Cart";
-import { useEffect, useState } from "react";
 import { products } from "./fakeData";
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "./Contexts/GlobalContext";
+import SignIn from "./pages/SignIn/SignIn";
+import SignUp from "./pages/SignUp/SignUp";
 
 function App() {
   const [catalogProducts, setCatalogProducts] = useState(products);
-
+  const { connectedUser } = useContext(GlobalContext);
   useEffect(() => {
-    fetch("http://localhost:3001/products")
+    fetch("http://localhost:3001/products/all")
       .then((res) => res.json())
       .then((data) => {
         setCatalogProducts(data);
@@ -57,6 +60,8 @@ function App() {
               }
             />
             <Route path="*" element={<div>wrong</div>} />
+            <Route path="signIn" element={<SignIn />} />
+            <Route path="signUp" element={<SignUp />} />
           </Route>
         </Routes>
       </BrowserRouter>
