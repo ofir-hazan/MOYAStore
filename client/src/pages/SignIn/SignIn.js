@@ -1,20 +1,31 @@
 import "./SignIn.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { logInWithEmailAndPassword } from "../../Firebase.js"
 import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from "../../Contexts/GlobalContext";
+import { GetUser } from "../../Services/UserService";
+import { validateEmail } from "../../resources/Helpers/helpers";
 
 function SignIn(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { connectedUser, setConnectedUser } = useContext(GlobalContext);
     const navigate = useNavigate();
 
     const handleSignIn = () => {
         // Verify inputs
+        if (!validateEmail(email)) {
+            return;
+        }
         // Matching error message
         logInWithEmailAndPassword(email, password)
             .then(() => {
-                navigate('/');
+                GetUser(email)
+                    .then((data) => {
+                        setConnectedUser(data);
+                        navigate('/');
+                    })
             });
     }
 
@@ -42,9 +53,10 @@ function SignIn(props) {
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button class="btn btn-success" type="button" onClick={handleSignIn}>התחברות</button>
                 </div>
-                <Link to="/signUp">
-                    <div>עדיין לא רשומים? לחצו כאן!</div>
-                </Link>
+                <div>
+                    עדיין לא רשומים? 
+                    <Link to="/signUp">לחצו כאן! </Link>
+                </div>
             </div>
         </div>
     )

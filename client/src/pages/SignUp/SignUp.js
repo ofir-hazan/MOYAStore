@@ -1,7 +1,9 @@
 import "./SignUp.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { signUpWithEmailAndPassword } from "../../Firebase.js"
 import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from "../../Contexts/GlobalContext";
+import { AddUser } from "../../Services/UserService";
 
 function SignUp(props) {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -9,13 +11,19 @@ function SignUp(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVerify, setPasswordVerify] = useState("");
+    const { connectedUser, setConnectedUser } = useContext(GlobalContext);
     const navigate = useNavigate();
 
     const handleSignUp = () => {
         // Verify inputs
+        const user = {};
         // Matching error message
         signUpWithEmailAndPassword(email, password)
             .then(() => {
+                AddUser(user)
+                    .then(() => {
+                        setConnectedUser(user);
+                    })
                 navigate('/');
             });
     }

@@ -10,11 +10,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    firstName: {
-        type: String
-    },
-    lastName: {
-        type: String
+    email: {
+        type: String,
+        require: true
     },
     role: {
         type: String,
