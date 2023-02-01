@@ -1,15 +1,15 @@
-import './App.css';
-import HomePage from './pages/Home/homePage'
+import "./App.css";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Catalog from "./pages/Catalog/Catalog";
 import Cart from "./pages/Cart/Cart";
+import { products } from "./fakeData";
 import { useContext, useEffect, useState } from "react";
-import { GlobalContext } from './Contexts/GlobalContext';
-import SignIn from './pages/SignIn/SignIn';
-import SignUp from './pages/SignUp/SignUp';
+import { GlobalContext } from "./Contexts/GlobalContext";
+import SignIn from "./pages/SignIn/SignIn";
+import SignUp from "./pages/SignUp/SignUp";
 
 function App() {
-  const [catalogProducts, setCatalogProducts] = useState([]);
+  const [catalogProducts, setCatalogProducts] = useState(products);
   const { connectedUser } = useContext(GlobalContext);
   useEffect(() => {
     fetch("http://localhost:3001/products/all")
@@ -35,31 +35,38 @@ function App() {
     console.log(newCartProducts);
   }
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="App">
-              <Outlet />
-            </div>
-          }
-        >
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
           <Route
-            index
-            element={<Catalog products={catalogProducts} onAdd={onAdd} />}
-          />
-          <Route path="cart" element={<Cart products={cartProducts} clearProducts={() => setCartProducts([])} />} />
-          <Route path="signIn" element={<SignIn />} />
-          <Route path="signUp" element={<SignUp />} />
-          <Route path="*" element={<div>wrong</div>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            path="/"
+            element={
+              <div className="App">
+                <Outlet />
+              </div>
+            }
+          >
+            <Route
+              index
+              element={<Catalog products={catalogProducts} onAdd={onAdd} />}
+            />
+            <Route
+              path="cart"
+              element={
+                <Cart
+                  products={cartProducts}
+                  clearProducts={() => setCartProducts([])}
+                />
+              }
+            />
+            <Route path="*" element={<div>wrong</div>} />
+            <Route path="signIn" element={<SignIn />} />
+            <Route path="signUp" element={<SignUp />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
-  // return (
-  //   <HomePage />
-  // );
 }
 
 export default App;

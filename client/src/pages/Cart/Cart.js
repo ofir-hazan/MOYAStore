@@ -27,20 +27,20 @@ function Cart(props) {
   function onSend() {
     const requestOptions = {
       method: "POST",
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         products: products,
         additionalInfo: additionalTextInput,
-        totalPrice: totalPrice()
-      })
-    }
+        totalPrice: totalPrice(),
+      }),
+    };
     fetch("http://localhost:3001/orders/insert", requestOptions)
-      .then(res => {
-        if(res.ok) {
-          setIsSuccessfullySent(true)
+      .then((res) => {
+        if (res.ok) {
+          setIsSuccessfullySent(true);
           clearProducts();
         } else {
-          setIsSuccessfullySent(false)
+          setIsSuccessfullySent(false);
         }
       })
       .catch((err) => {
@@ -68,7 +68,7 @@ function Cart(props) {
           {products?.length ? (
             <>
               {" "}
-              {renderOrderProducts()}
+              <div className="productsList">{renderOrderProducts()}</div>
               <div className="additionalInfo">
                 <div className="additionalInfotTitle">
                   {`פרטים נוספים (אופציונלי):`}
@@ -88,7 +88,9 @@ function Cart(props) {
         </>
       ) : (
         <div className="cartNoProducts">
-          {isSuccessfullySent ? "ההזמנה נשלחה בהצלחה!" : "מצטערים, חלה שגיאה :("}
+          {isSuccessfullySent
+            ? "ההזמנה נשלחה בהצלחה!"
+            : "מצטערים, חלה שגיאה :("}
         </div>
       )}
     </div>
