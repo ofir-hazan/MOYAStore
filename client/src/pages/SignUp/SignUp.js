@@ -4,6 +4,7 @@ import { signUpWithEmailAndPassword } from "../../Firebase.js"
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from "../../Contexts/GlobalContext";
 import { AddUser } from "../../Services/UserService";
+import { validateEmail } from "../../resources/Helpers/helpers";
 
 function SignUp(props) {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -16,15 +17,22 @@ function SignUp(props) {
 
     const handleSignUp = () => {
         // Verify inputs
-        const user = {};
+        if (!validateEmail(email)) {
+            return;
+        }
         // Matching error message
+        const user = {
+            userName: name,
+            email,
+            role: "Admin"
+        };
         signUpWithEmailAndPassword(email, password)
             .then(() => {
                 AddUser(user)
                     .then(() => {
                         setConnectedUser(user);
+                        navigate('/');
                     })
-                navigate('/');
             });
     }
 

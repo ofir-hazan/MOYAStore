@@ -1,4 +1,5 @@
 .App {
   background-color: #f3f9f9;
   height: 100%;
+  direction: rtl;
 }

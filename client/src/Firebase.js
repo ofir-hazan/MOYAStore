@@ -23,26 +23,33 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 async function signUpUser(email, password) {
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed up
-            const user = userCredential.user;
-            // Save to DB
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log({errorCode, errorMessage})
-        });
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+
+  // createUserWithEmailAndPassword(auth, email, password)
+  //   .then((userCredential) => {
+  //       // Signed up
+  //       const user = userCredential.user;
+  //       return user;
+  //   })
+  //   .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       console.log({errorCode, errorMessage})
+  //   });
 }
 
-export const signUpWithEmailAndPassword = async (name, email, password) => {
+export const signUpWithEmailAndPassword = async (email, password) => {
     try {
       const res = await signUpUser(email, password);
-      const user = res.user;
-      
+      return res;
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
 };
 
