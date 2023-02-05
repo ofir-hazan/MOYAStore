@@ -1,38 +1,12 @@
 import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  CssBaseline,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
+import { AppBar, Toolbar, CssBaseline } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
-
-const useStyles = makeStyles((theme) => ({
-  navlinks: {
-    marginLeft: theme.spacing(10),
-    display: "flex",
-  },
-  link: {
-    textDecoration: "none",
-    color: "white",
-    fontSize: "20px",
-    marginLeft: theme.spacing(20),
-    "&:hover": {
-      color: "#acf9e9",
-      borderBottom: "1px solid white",
-    },
-  },
-  logout: {},
-}));
-
-const appBarStyle = {
-  background: "#8ea3af",
-};
+import "./navbar.css";
+import { useStyles, appBarStyle } from "./navbar.styles";
 
 function Navbar() {
   const classes = useStyles();
