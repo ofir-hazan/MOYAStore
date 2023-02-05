@@ -5,7 +5,6 @@ import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
-import "./navbar.css";
 import { useStyles, appBarStyle } from "./navbar.styles";
 
 function Navbar() {
