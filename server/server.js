@@ -4,6 +4,7 @@ require("dotenv").config();
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const productRouter = require("./routes/productRouter");
+const supplierRouter = require("./routes/supplierRouter");
 
 const port = process.env.PORT || 3001;
 
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/products', productRouter);
+app.use('/suppliers', supplierRouter);
 
 // send 404 if no other route matched
 app.all('*', (req, res, next) => {
