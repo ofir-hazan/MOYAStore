@@ -6,10 +6,28 @@ import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import { useStyles, appBarStyle } from "./navbar.styles";
+import { logout } from "../../Firebase";
 
 function Navbar() {
   const classes = useStyles();
   const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    // try {
+    //   logout();
+    //   navigate("/signIn")
+    // } catch (err) {
+    //   console.log(err)
+    // }
+    
+    logout()
+    .then(() => {
+      navigate("/signIn")
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 
   return (
     <AppBar position="static" style={appBarStyle}>
@@ -41,13 +59,22 @@ function Navbar() {
           <Link to="/addProduct" className={classes.link}>
             Add product
           </Link>
-          <Link to="/signIn" className={classes.link}>
+          {/* <Link to="/signIn" className={classes.link}>
             <LogoutIcon />
-          </Link>
+          </Link> */}
           {/* <Link to="/signUp" className={classes.link}>
             signUp
           </Link> */}
         </div>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          sx={{ mr: 2 }}
+          onClick={handleLogOut}
+        >
+          <LogoutIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
