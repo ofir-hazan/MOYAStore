@@ -13,13 +13,6 @@ function Navbar() {
   const navigate = useNavigate();
 
   const handleLogOut = () => {
-    // try {
-    //   logout();
-    //   navigate("/signIn")
-    // } catch (err) {
-    //   console.log(err)
-    // }
-    
     logout()
     .then(() => {
       navigate("/signIn")
