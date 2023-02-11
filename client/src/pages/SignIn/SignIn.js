@@ -20,13 +20,16 @@ function SignIn(props) {
         }
         // Matching error message
         logInWithEmailAndPassword(email, password)
-            .then(() => {
-                GetUser(email)
-                    .then((data) => {
-                        setConnectedUser(data);
-                        navigate('/');
-                    })
-            });
+            .then(async (firebaseUser) => {
+                const user = await GetUser(firebaseUser.uid);
+                if (user) {
+                    setConnectedUser(user);
+                    navigate('/');
+                }
+            })
+            .catch ((error) => {
+                console.log(error);
+            }); 
     }
 
     return (

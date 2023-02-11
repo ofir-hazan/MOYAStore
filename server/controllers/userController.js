@@ -5,7 +5,7 @@ const User = require("../models/user");
 
 exports.getUser = async (req, res, next) => {
     mongoose.connect(process.env.DB_CONNECTION_STRING).then(async () => {
-        const user = await User.findOne({ email: req.body });
+        const user = await User.findOne({ uid: req.params.uid });
         res.status(200).send(user).end();
     }).catch(err => {
         console.log(err);

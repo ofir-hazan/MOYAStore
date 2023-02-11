@@ -21,19 +21,24 @@ function SignUp(props) {
             return;
         }
         // Matching error message
-        const user = {
+        let user = {
             userName: name,
             email,
-            role: "Admin"
+            role: "admin"
         };
+
         signUpWithEmailAndPassword(email, password)
-            .then(() => {
-                AddUser(user)
-                    .then(() => {
-                        setConnectedUser(user);
-                        navigate('/');
-                    })
-            });
+            .then(async (firebaseUser) => {
+                user = {...user, uid: firebaseUser.uid}
+                const dbUser = await AddUser(user);
+                if (dbUser) {
+                    setConnectedUser(user);
+                    navigate('/');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });   
     }
 
     return (
