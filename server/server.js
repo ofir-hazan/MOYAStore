@@ -4,6 +4,7 @@ require("dotenv").config();
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const productRouter = require("./routes/productRouter");
+const { runScraping } = require('./src/scraping/scraping');
 
 const port = process.env.PORT || 3001;
 
@@ -21,6 +22,12 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
   res.status(200).end();
 })
+
+app.post('/scraping', (req,res) => {
+  runScraping();
+  res.status(200).end();
+})
+
 
 app.use('/products', productRouter);
 
