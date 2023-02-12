@@ -71,17 +71,21 @@ function Cart() {
               {" "}
               <div className="productsList">{renderOrderProducts()}</div>
               <div className="additionalInfo">
-                <div className="additionalInfotTitle">
+                <div className="additionalInfoTitle">
                   {`פרטים נוספים (אופציונלי):`}
                 </div>
                 <textarea
-                  className="additionaalInfoText"
+                  className="additionalInfoText"
                   placeholder="פרטים נוספים..."
                   onChange={onTextChange}
                   value={additionalTextInput}
                 />
               </div>
-              <OrderFooter onSend={onSend} price={totalPrice()} />
+              <OrderFooter
+                className="footer"
+                onSend={onSend}
+                price={totalPrice()}
+              />
             </>
           ) : (
             <div className="cartNoProducts">אין מוצרים בעגלה!</div>
