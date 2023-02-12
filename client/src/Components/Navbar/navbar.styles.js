@@ -16,7 +16,19 @@ export const useStyles = makeStyles((theme) => ({
       borderBottom: "1px solid white",
     },
   },
-  logout: {},
+  logout: {
+    marginRight: "auto",
+    marginLeft: "250px",
+    textDecoration: "none",
+    color: "white",
+    fontSize: "20px",
+    marginLeft: theme.spacing(10),
+    alignSelf: "center",
+    "&:hover": {
+      color: "#acf9e9",
+      borderBottom: "1px solid white",
+    },
+  },
 }));
 
 export const appBarStyle = {

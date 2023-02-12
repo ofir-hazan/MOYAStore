@@ -44,7 +44,7 @@ function Navbar() {
           <Link to="/addProduct" className={classes.link}>
             Add product
           </Link>
-          <Link to="/signIn" className={classes.link}>
+          <Link to="/signIn" className={classes.logout}>
             <LogoutIcon />
           </Link>
         </div>
