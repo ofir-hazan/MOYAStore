@@ -16,7 +16,7 @@ function OrdersPage(props) {
   }, []);
 
   function loadData() {
-    fetch("http://localhost:3001/orders/" + connectedUser.uid)
+    fetch("http://localhost:3001/orders/" + "DF857FE5shTIbyrQAUjjzTBcrR32"  )
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
