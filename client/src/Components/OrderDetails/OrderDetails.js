@@ -1,18 +1,13 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-=======
-import React from "react";
->>>>>>> origin/orders_page
 import "./OrderDetails.css";
 import OrderProduct from "../OrderProduct/OrderProduct";
 import InfoIcon from "@mui/icons-material/Info";
 import { ReactComponent as BackIcon } from "../../resources/back.svg";
 
 function OrderDetails(props) {
-<<<<<<< HEAD
   const { setClickedOrder, catalogProducts, uiId, reloadData } = props;
   const { _id, orderDate } = props.order;
   const [editable, setEditable] = useState(false);
@@ -196,36 +191,6 @@ function OrderDetails(props) {
         </div>
       ) : null}
     </>
-=======
-  const { setClickedOrder } = props;
-  const { id, products, date } = props.order;
-  function renderOrderProducts() {
-    return products.map((product) => (
-      <OrderProduct key={product.name} product={product} />
-    ));
-  }
-
-  return (
-    <div>
-      <div className="productsHeader">
-        <div className="productsTitle">הזמנה {id}</div>
-        <div className="back" onClick={() => setClickedOrder(null)}>
-          <BackIcon height={30} width={30} />
-        </div>
-      </div>
-
-      <div className="productsList">
-        <div className="orderDetails">
-          {`ההזמנה בוצעה בתאריך ${date} בשעה 12:00`}
-          <div className="orderChangeInfo">
-            <InfoIcon />
-            ההזמנה ניתנת לשינוי עד לשעתיים לאחר ביצועה
-          </div>
-        </div>
-        {renderOrderProducts()}
-      </div>
-    </div>
->>>>>>> origin/orders_page
   );
 }
 
