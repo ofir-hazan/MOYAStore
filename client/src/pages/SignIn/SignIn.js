@@ -21,11 +21,10 @@ function SignIn(props) {
         // Matching error message
         logInWithEmailAndPassword(email, password)
             .then(async (firebaseUser) => {
-                console.log(firebaseUser);
                 const user = await GetUser(firebaseUser.uid);
                 if (user) {
                     setConnectedUser(user);
-                    navigate('*');
+                    navigate('/');
                 }
             })
             .catch ((error) => {
