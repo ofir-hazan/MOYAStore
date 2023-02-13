@@ -1,19 +1,20 @@
 .orderFooterTotalPrice {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
   color: black;
+  margin-left: auto;
 }
 
 .orderFooterContainer {
   background-color: white;
   margin-top: 20px;
   display: flex;
-  /* border: 2px solid #eea243; */
   border-radius: 5px;
   padding: 20px;
   align-items: center;
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
     rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  direction: rtl;
 }
 
 .orderFooterTotalPriceDesc {
@@ -34,6 +35,7 @@
 }
 
 .orderFooterSend {
+  margin-right: auto;
   background-color: #6cbaa9;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
@@ -50,5 +52,5 @@
 }
 
 .orderFooterSend:hover {
-  background: #00bd68;
+  background: #02683a;
 }
