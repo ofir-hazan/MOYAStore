@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./orders.css";
 import Order from "../../Components/Order/Order";
 import OrderDetails from "../../Components/OrderDetails/OrderDetails";
 import { ReactComponent as CartIcon } from "../../resources/cart.svg";
+import { GlobalContext } from "../../Contexts/GlobalContext";
 import { Link } from "react-router-dom";
 
 function OrdersPage(props) {
   const { catalogProducts } = props;
   const [orders, setOrders] = useState([]);
   const [clickedOrder, setClickedOrder] = useState();
+  const { connectedUser } = useContext(GlobalContext);
     useEffect(() => {
     loadData();
   }, []);
 
   function loadData() {
-    fetch("http://localhost:3001/orders/" + "DF857FE5shTIbyrQAUjjzTBcrR32")
+    fetch("http://localhost:3001/orders/" + connectedUser.uid)
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);

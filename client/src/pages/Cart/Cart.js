@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import "./Cart.css";
 import OrderFooter from "../../Components/OrderFooter/OrderFooter";
 import { CartContext } from "../../Contexts/cartContext";
+import { GlobalContext } from "../../Contexts/GlobalContext";
 
 function Cart() {
   const { cartProducts, clearProducts, onAdd, onRemove } = useContext(CartContext);
+  const { connectedUser } = useContext(GlobalContext);
   const [additionalTextInput, setAdditionalTextInput] = useState("");
   const [isSuccessfullySent, setIsSuccessfullySent] = useState(undefined);
 
