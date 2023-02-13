@@ -1,5 +1,5 @@
 .container {
-    background-color: #f3e37c;
+    background-color: #ddf8f8;
     margin: auto;
     width: 30%;
     padding: 20px;
@@ -13,7 +13,7 @@
     flex: 1;
 }
 
-.footer {
+.formFooter {
     display: flex;
     align-items: center;
     flex-direction: column;

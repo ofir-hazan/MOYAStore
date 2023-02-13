@@ -11,6 +11,7 @@ import { logout } from "../../Firebase";
 function Navbar() {
   const classes = useStyles();
   const navigate = useNavigate();
+  const notToShowInPages = ["/signIn", "/signUp"];
 
   const handleLogOut = () => {
     logout()
@@ -22,7 +23,9 @@ function Navbar() {
     })
   }
 
-  return (
+  return notToShowInPages.includes(window.location.pathname) ? (
+    <></>
+  ) : (
     <AppBar position="static" style={appBarStyle}>
       <CssBaseline />
       <Toolbar>
@@ -37,9 +40,9 @@ function Navbar() {
           MOYA
         </IconButton>
         <div className={classes.navlinks}>
-          {/* <Link to="/" className={classes.link}>
+          <Link to="/" className={classes.link}>
             Home
-          </Link> */}
+          </Link>
           <Link to="/cart" className={classes.link}>
             <ShoppingCartTwoToneIcon />
           </Link>
@@ -57,6 +60,9 @@ function Navbar() {
           </Link> */}
           {/* <Link to="/signUp" className={classes.link}>
             signUp
+          </Link> */}
+          {/* <Link to="/signIn" className={classes.logout}>
+            <LogoutIcon />
           </Link> */}
         </div>
         <IconButton
