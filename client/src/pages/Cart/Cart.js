@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import OrderProduct from "../../Components/OrderProduct/OrderProduct";
 import { ReactComponent as BackIcon } from "../../resources/back.svg";
 import { Link } from "react-router-dom";
 import "./Cart.css";
 import OrderFooter from "../../Components/OrderFooter/OrderFooter";
+import { CartContext } from "../../Contexts/cartContext";
 
-function Cart(props) {
-  const { products, clearProducts } = props;
+function Cart() {
+  const { cartProducts, clearProducts } = useContext(CartContext);
   const [additionalTextInput, setAdditionalTextInput] = useState("");
   const [isSuccessfullySent, setIsSuccessfullySent] = useState(undefined);
 
   function renderOrderProducts() {
-    return products.map((product) => (
+    return cartProducts.map((product) => (
       <OrderProduct key={product.name} product={product} />
     ));
   }
 
   function totalPrice() {
     let price = 0;
-    products.forEach(
+    cartProducts.forEach(
       (product) => (price += (product.price || 0) * (product.quantity || 1))
     );
     return price.toFixed(2);
@@ -29,7 +30,7 @@ function Cart(props) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        products: products,
+        products: cartProducts,
         additionalInfo: additionalTextInput,
         totalPrice: totalPrice(),
       }),
@@ -65,22 +66,26 @@ function Cart(props) {
       </div>
       {isSuccessfullySent === undefined ? (
         <>
-          {products?.length ? (
+          {cartProducts?.length ? (
             <>
               {" "}
               <div className="productsList">{renderOrderProducts()}</div>
               <div className="additionalInfo">
-                <div className="additionalInfotTitle">
+                <div className="additionalInfoTitle">
                   {`פרטים נוספים (אופציונלי):`}
                 </div>
                 <textarea
-                  className="additionaalInfoText"
+                  className="additionalInfoText"
                   placeholder="פרטים נוספים..."
                   onChange={onTextChange}
                   value={additionalTextInput}
                 />
               </div>
-              <OrderFooter onSend={onSend} price={totalPrice()} />
+              <OrderFooter
+                className="footer"
+                onSend={onSend}
+                price={totalPrice()}
+              />
             </>
           ) : (
             <div className="cartNoProducts">אין מוצרים בעגלה!</div>
