@@ -13,7 +13,7 @@
     flex: 1;
 }
 
-.footer {
+.formFooter {
     display: flex;
     align-items: center;
     flex-direction: column;
