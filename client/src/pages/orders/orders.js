@@ -9,8 +9,7 @@ function OrdersPage(props) {
   const { catalogProducts } = props;
   const [orders, setOrders] = useState([]);
   const [clickedOrder, setClickedOrder] = useState();
-
-  useEffect(() => {
+    useEffect(() => {
     loadData();
   }, []);
 
@@ -23,26 +22,27 @@ function OrdersPage(props) {
       .catch((err) => console.log(err));
   }
 
+
   function renderOrders() {
     return orders.map((order) => (
       <Order
-        key={order._id}
-        order={order}
-        uiId={orders.indexOf(order) + 1}
-        setClickedOrder={setClickedOrder}
-      />
+      key={order._id}
+      order={order}
+      uiId={orders.indexOf(order) + 1}
+      setClickedOrder={setClickedOrder}
+    />
     ));
   }
   return (
     <div className="products">
       {clickedOrder ? (
-        <OrderDetails
-          order={clickedOrder}
-          uiId={orders.indexOf(clickedOrder) + 1}
-          setClickedOrder={setClickedOrder}
-          catalogProducts={catalogProducts}
-          reloadData={loadData}
-        />
+                <OrderDetails
+                order={clickedOrder}
+                uiId={orders.indexOf(clickedOrder) + 1}
+                setClickedOrder={setClickedOrder}
+                catalogProducts={catalogProducts}
+                reloadData={loadData}
+              />
       ) : (
         <>
           <div className="productsHeader">
