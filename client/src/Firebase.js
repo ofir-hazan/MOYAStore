@@ -22,49 +22,18 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
-async function signUpUser(email, password) {
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed up
-            const user = userCredential.user;
-            // Save to DB
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log({errorCode, errorMessage})
-        });
-}
-
-export const signUpWithEmailAndPassword = async (name, email, password) => {
-    try {
-      const res = await signUpUser(email, password);
-      const user = res.user;
-      
-    } catch (err) {
-      console.error(err);
-    }
-};
-
-async function signInUser (email, password) {
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log({errorCode, errorMessage})
-        });
+export const signUpWithEmailAndPassword = async (email, password) => {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    return user;
 }
 
 export const logInWithEmailAndPassword = async (email, password) => {
-    try {
-      await signInUser(email, password);
-    } catch (err) {
-      console.error(err);
-    }
+    const res = await signInWithEmailAndPassword(auth, email, password);
+    if (res) {
+      const user = res.user;
+      return user;
+    } 
 };
 
 export const sendPasswordReset = async (email) => {

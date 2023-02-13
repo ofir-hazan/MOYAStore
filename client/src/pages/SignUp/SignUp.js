@@ -1,7 +1,10 @@
 import "./SignUp.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { signUpWithEmailAndPassword } from "../../Firebase.js"
 import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from "../../Contexts/GlobalContext";
+import { AddUser } from "../../Services/UserService";
+import { validateEmail } from "../../resources/Helpers/helpers";
 
 function SignUp(props) {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -9,15 +12,33 @@ function SignUp(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVerify, setPasswordVerify] = useState("");
+    const { connectedUser, setConnectedUser } = useContext(GlobalContext);
     const navigate = useNavigate();
 
     const handleSignUp = () => {
         // Verify inputs
+        if (!validateEmail(email)) {
+            return;
+        }
         // Matching error message
+        let user = {
+            userName: name,
+            email,
+            role: "admin"
+        };
+
         signUpWithEmailAndPassword(email, password)
-            .then(() => {
-                navigate('/');
-            });
+            .then(async (firebaseUser) => {
+                user = {...user, uid: firebaseUser.uid}
+                const dbUser = await AddUser(user);
+                if (dbUser) {
+                    setConnectedUser(user);
+                    navigate('/');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });   
     }
 
     return (
