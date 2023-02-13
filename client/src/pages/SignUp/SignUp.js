@@ -3,7 +3,6 @@ import { useState, useContext } from "react";
 import { signUpWithEmailAndPassword } from "../../Firebase.js"
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from "../../Contexts/GlobalContext";
-import { AddUser } from "../../Services/UserService";
 import { validateEmail } from "../../resources/Helpers/helpers";
 
 function SignUp(props) {
@@ -30,11 +29,20 @@ function SignUp(props) {
         signUpWithEmailAndPassword(email, password)
             .then(async (firebaseUser) => {
                 user = {...user, uid: firebaseUser.uid}
-                const dbUser = await AddUser(user);
-                if (dbUser) {
-                    setConnectedUser(user);
-                    navigate('/');
-                }
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(user)
+                  };
+              
+                await fetch("http://localhost:3001/user/add", requestOptions)
+                    .then(res => res.json())
+                    .then((dbUser) => {
+                        if (dbUser) {
+                            setConnectedUser(user);
+                            navigate('/');
+                        }
+                    });
             })
             .catch((error) => {
                 console.log(error);
@@ -44,35 +52,35 @@ function SignUp(props) {
     return (
         <div className="container">
             <div className="title">
-                הרשמה
+                Sign Up
             </div>
             <div className="form">
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={isAdmin} onClick={() => setIsAdmin(!isAdmin)} />
                     <label class="form-check-label" for="flexCheckDefault">
-                        אני מנהל מערכת
+                        I am an admin
                     </label>
                 </div>
                 <div class="mb-3 row">
-                    <label for="inputEmail" class="col-sm-4 col-form-label">שם מלא</label>
+                    <label for="inputEmail" class="col-sm-4 col-form-label">Full name</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="inputEmail" value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="inputEmail" class="col-sm-4 col-form-label">אימייל</label>
+                    <label for="inputEmail" class="col-sm-4 col-form-label">E-mail</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="inputEmail" value={email} onChange={(e) => setEmail(e.target.value)}  />
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-4 col-form-label">סיסמה</label>
+                    <label for="inputPassword" class="col-sm-4 col-form-label">Password</label>
                     <div class="col-sm-8">
                         <input type="password" class="form-control" id="inputPassword" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
                 </div>
                 <div class="row">
-                    <label for="inputPassword" class="col-sm-4 col-form-label">אמת סיסמה</label>
+                    <label for="inputPassword" class="col-sm-4 col-form-label">Verify password</label>
                     <div class="col-sm-8">
                         <input type="password" class="form-control" id="inputPassword" value={passwordVerify} onChange={(e) => setPasswordVerify(e.target.value)} />
                     </div>
@@ -80,7 +88,7 @@ function SignUp(props) {
             </div>
            
             <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-success" type="button" onClick={handleSignUp}>הרשמה</button>
+                <button class="btn btn-success" type="button" onClick={handleSignUp}>Sign up now!</button>
             </div>
         </div>
     )
