@@ -1,13 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./Catalog.css";
+import { styled } from '@mui/material/styles';
 import Product from "../../Components/Product/Product";
-import { ReactComponent as CartIcon } from "../../resources/cart.svg";
-import { Link } from "react-router-dom";
+import StatisticsDialog from "../../Components/StatisticsDialog/StatisticsDialog";
+import BarChartIcon from '@mui/icons-material/BarChart';
 import { CartContext } from "../../Contexts/cartContext";
+import { GlobalContext } from "../../Contexts/GlobalContext";
+import Button from '@mui/material/Button';
+import { ROLES } from "../../resources/constants";
 
 function Catalog(props) {
   const { onAdd } = useContext(CartContext);
+  const { connectedUser } = useContext(GlobalContext)
   const { products } = props;
+  const [statsDialogOpen, setStatsDialogOpen] = useState(false);
 
   function renderProducts() {
     return products.map((product) => (
@@ -19,15 +25,23 @@ function Catalog(props) {
     ));
   }
 
+  const ColorButton = styled(Button) ({
+    position: 'absolute',
+    color: 'white',
+    backgroundColor: '#6cbaa9',
+    '&:hover': {
+      backgroundColor: '#6cbaa9',
+    },
+  });
+
   return (
     <div className="products">
       <div className="productsHeader">
+        {connectedUser?.role === ROLES.ADMIN &&
+          (<ColorButton onClick={() => setStatsDialogOpen(true)} startIcon={<BarChartIcon />}>
+            Watch statictics
+           </ColorButton>)}
         <div className="productsTitle">רשימת מוצרים</div>
-        {/* <Link to="/cart">
-          <div className="cart">
-            <CartIcon height={30} width={30} />
-          </div>
-        </Link> */}
       </div>
       <div className="productsList">
         {products?.length ? (
@@ -36,6 +50,7 @@ function Catalog(props) {
           <div className="catalogNoProducts">אין מוצרים בקטלוג!</div>
         )}
       </div>
+      <StatisticsDialog open={statsDialogOpen} onClose={() => setStatsDialogOpen(false)} products/>
     </div>
   );
 }

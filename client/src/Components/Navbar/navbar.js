@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AppBar, Toolbar, CssBaseline } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
@@ -7,11 +7,14 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import { useStyles, appBarStyle } from "./navbar.styles";
 import { logout } from "../../Firebase";
+import { GlobalContext } from "../../Contexts/GlobalContext";
+import { act } from "react-dom/test-utils";
 
 function Navbar() {
   const classes = useStyles();
   const navigate = useNavigate();
   const notToShowInPages = ["/signIn", "/signUp"];
+  const { activeUsersAmt } = useContext(GlobalContext);
 
   const handleLogOut = () => {
     logout()
@@ -64,6 +67,9 @@ function Navbar() {
           {/* <Link to="/signIn" className={classes.logout}>
             <LogoutIcon />
           </Link> */}
+        </div>
+        <div className={classes.activeUsers}>
+          {`Theres ${activeUsersAmt} users connected currently`}
         </div>
         <IconButton
           size="large"
