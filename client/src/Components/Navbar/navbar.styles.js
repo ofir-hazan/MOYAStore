@@ -33,6 +33,5 @@ export const useStyles = makeStyles((theme) => ({
 
 export const appBarStyle = {
   display: "flex",
-
   background: "#8ea3af",
 };
