@@ -103,3 +103,44 @@ exports.deleteOrder = async (req, res, next) => {
         res.status(500).end();
       });
   };
+
+exports.getSoldQuantities = async (req, res, next) => {
+  mongoose
+    .connect(process.env.DB_CONNECTION_STRING)
+    .then(async () => {
+      const productsQuantities = await ProductInOrder.aggregate([
+        { // Joining
+          $lookup: {
+            from: "products",
+            localField: "productId",
+            foreignField: "_id",
+            as: "productDetails"
+          }
+        },
+        { // Unwinding from array
+          $unwind: "$productDetails"
+        },
+        { // Summerizing
+          $group: {
+            _id: "$productDetails.name",
+            count: {
+              $sum: "$quantity"
+            }
+          }
+        },
+        { // Sorting descending
+          $sort: { 
+            count: -1
+          }
+        },
+        { // Taking the top 5
+          $limit: 5 
+        }
+      ])
+      res.status(200).send(productsQuantities).end();
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).end();
+    });
+}
