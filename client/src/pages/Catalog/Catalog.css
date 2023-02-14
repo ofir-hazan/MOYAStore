@@ -1,6 +1,6 @@
 .products {
   margin: auto;
-  width: 70%;
+  width: 80%;
   padding: 20px;
   border-radius: 5px;
 }
@@ -20,9 +20,11 @@
 
 .productsList {
   display: flex;
-  flex-direction: column;
   align-content: center;
   align-items: center;
+  flex-direction: revert;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .cart {

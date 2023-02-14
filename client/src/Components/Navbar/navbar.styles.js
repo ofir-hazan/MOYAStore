@@ -34,4 +34,8 @@ export const useStyles = makeStyles((theme) => ({
 export const appBarStyle = {
   display: "flex",
   background: "#8ea3af",
+  overflow: "hidden",
+  // position: "fixed",
+  top: "0",
+  // width: "100%",
 };
