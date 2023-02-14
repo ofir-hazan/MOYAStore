@@ -4,6 +4,10 @@
     width: 30%;
     padding: 20px;
     border-radius: 5px;
+    position: absolute; 
+    left: 50%; 
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .title {
@@ -13,7 +17,7 @@
     flex: 1;
 }
 
-.footer {
+.formFooter {
     display: flex;
     align-items: center;
     flex-direction: column;

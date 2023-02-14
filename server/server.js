@@ -4,8 +4,10 @@ require("dotenv").config();
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const productRouter = require("./routes/productRouter");
+const { runScraping } = require('./src/scraping/scraping');
 const supplierRouter = require("./routes/supplierRouter");
 const userRouter = require("./routes/userRouter");
+const orderRouter = require("./routes/orderRouter");
 
 const port = process.env.PORT || 3001;
 
@@ -24,9 +26,16 @@ app.get('/', (req, res) => {
   res.status(200).end();
 })
 
+app.post('/scraping', (req,res) => {
+  runScraping();
+  res.status(200).end();
+})
+
+
 app.use('/products', productRouter);
 app.use('/suppliers', supplierRouter);
 app.use('/user', userRouter);
+app.use('/orders', orderRouter);
 
 // send 404 if no other route matched
 app.all('*', (req, res, next) => {

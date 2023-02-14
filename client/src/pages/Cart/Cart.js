@@ -5,15 +5,17 @@ import { Link } from "react-router-dom";
 import "./Cart.css";
 import OrderFooter from "../../Components/OrderFooter/OrderFooter";
 import { CartContext } from "../../Contexts/cartContext";
+import { GlobalContext } from "../../Contexts/GlobalContext";
 
 function Cart() {
-  const { cartProducts, clearProducts } = useContext(CartContext);
+  const { cartProducts, clearProducts, onAdd, onRemove } = useContext(CartContext);
+  const { connectedUser } = useContext(GlobalContext);
   const [additionalTextInput, setAdditionalTextInput] = useState("");
   const [isSuccessfullySent, setIsSuccessfullySent] = useState(undefined);
 
   function renderOrderProducts() {
     return cartProducts.map((product) => (
-      <OrderProduct key={product.name} product={product} />
+      <OrderProduct key={product.name} product={product} onAdd={onAdd} onRemove={onRemove} />
     ));
   }
 
@@ -30,6 +32,7 @@ function Cart() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        uid: "DF857FE5shTIbyrQAUjjzTBcrR32",
         products: cartProducts,
         additionalInfo: additionalTextInput,
         totalPrice: totalPrice(),

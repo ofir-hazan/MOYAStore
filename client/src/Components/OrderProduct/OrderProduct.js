@@ -6,7 +6,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { CartContext } from "../../Contexts/cartContext";
 
 function OrderProduct(props) {
-  const { onAdd, onRemove } = useContext(CartContext);
+  const { editable = true, onAdd, onRemove } = props;
   const { name, description, image, price, quantity = 1 } = props.product;
 
   const increaseAmount = () => {
@@ -29,13 +29,18 @@ function OrderProduct(props) {
       <div className="productPictureContainer">
         <img className="productPicture" src={image} />
         <div>
-          <IconButton size="small" onClick={increaseAmount}>
-            <AddIcon fontSize="inherit" />
-          </IconButton>
+          {editable ? (
+            <IconButton size="small" onClick={increaseAmount}>
+              <AddIcon fontSize="inherit" />
+            </IconButton>
+          ) : null}
+
           {quantity}
-          <IconButton size="small" onClick={decreaseAmount}>
-            <RemoveIcon fontSize="inherit" />
-          </IconButton>
+          {editable ? (
+            <IconButton size="small" onClick={decreaseAmount}>
+              <RemoveIcon fontSize="inherit" />
+            </IconButton>
+          ) : null}
         </div>
       </div>
     </div>
