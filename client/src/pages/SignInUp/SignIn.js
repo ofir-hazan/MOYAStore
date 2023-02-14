@@ -1,6 +1,6 @@
 import "./SignInUp.css";
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Alert from '@mui/material/Alert';
 import { logInWithEmailAndPassword } from "../../Firebase.js"
 import { useNavigate } from 'react-router-dom';

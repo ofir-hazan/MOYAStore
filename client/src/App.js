@@ -15,7 +15,7 @@ import { CartContextProvider } from "./Contexts/cartContext";
 
 function App() {
   const [catalogProducts, setCatalogProducts] = useState(products);
-  const { connectedUser } = useContext(GlobalContext);
+  const { connectedUser, setActiveUsersAmt, socket } = useContext(GlobalContext);
   useEffect(() => {
     fetch("http://localhost:3001/products/all")
       .then((res) => res.json())
@@ -23,6 +23,15 @@ function App() {
         setCatalogProducts(data);
       })
       .catch((err) => console.log(err));
+
+    socket.on("signedIn", (amount) => {
+      console.log(amount);
+      setActiveUsersAmt(amount);
+    });
+
+    return () => {
+      socket.off("signedIn");
+    };
   }, []);
 
   return (
@@ -46,7 +55,10 @@ function App() {
             <Route path="signUp" element={<SignUp />} />
             <Route path="suppliers" element={<SuppliiersPage />} />
             <Route path="addProduct" element={<AddProductPage />} />
-            <Route path="orders" element={<OrdersPage catalogProducts={catalogProducts} />} />
+            <Route
+              path="orders"
+              element={<OrdersPage catalogProducts={catalogProducts} />}
+            />
           </Routes>
         </BrowserRouter>
       </CartContextProvider>
