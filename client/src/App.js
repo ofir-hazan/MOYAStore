@@ -46,7 +46,7 @@ function App() {
             <Route path="signUp" element={<SignUp />} />
             <Route path="suppliers" element={<SuppliiersPage />} />
             <Route path="addProduct" element={<AddProductPage />} />
-            <Route path="orders" element={<OrdersPage />} />
+            <Route path="orders" element={<OrdersPage catalogProducts={catalogProducts} />} />
           </Routes>
         </BrowserRouter>
       </CartContextProvider>
