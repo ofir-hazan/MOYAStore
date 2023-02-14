@@ -19,8 +19,9 @@ function OrderDetails(props) {
     fetch("http://localhost:3001/orders/orderProducts/" + _id)
       .then((res) => res.json())
       .then((data) => {
+        const originalData = JSON.parse(JSON.stringify(data)); //deep copy of array
         setProducts(data);
-        setOriginalProducts(data);
+        setOriginalProducts(originalData);
         setEditable(isEditable);
       })
       .catch((err) => console.log(err));
@@ -91,8 +92,10 @@ function OrderDetails(props) {
   }
 
   function cancelEdit() {
+    console.log(originalProducts)
     setProducts(originalProducts);
     setProductsToDelete([]);
+    setEditMode(false);
   }
 
   function saveEdit() {
