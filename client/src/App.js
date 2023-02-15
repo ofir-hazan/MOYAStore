@@ -73,7 +73,7 @@ function App() {
               <Route
                 path="suppliers"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute admin={true}>
                     <SuppliiersPage />
                   </ProtectedRoute>
                 }
@@ -81,7 +81,7 @@ function App() {
               <Route
                 path="addProduct"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute admin={true}>
                     <AddProductPage />
                   </ProtectedRoute>
                 }
