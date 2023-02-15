@@ -46,6 +46,7 @@ function SignIn() {
                     .then((user) => {
                         if (user) {
                             setConnectedUser(user);
+                            localStorage.setItem('user', JSON.stringify(user));
                             navigate('/');
                         }
                     })

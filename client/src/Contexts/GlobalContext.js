@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 export const GlobalContext = createContext({});
 
 const GlobalContextProvider = (props) => {
-  const [connectedUser, setConnectedUser] = useState(null);
+  const [connectedUser, setConnectedUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [catalogProducts, setCatalogProducts] = useState([]);
   const [activeUsersAmt, setActiveUsersAmt] = useState(0);
 
