@@ -8,14 +8,20 @@ import { CartContext } from "../../Contexts/cartContext";
 import { GlobalContext } from "../../Contexts/GlobalContext";
 
 function Cart() {
-  const { cartProducts, clearProducts, onAdd, onRemove } = useContext(CartContext);
+  const { cartProducts, clearProducts, onAdd, onRemove } =
+    useContext(CartContext);
   const { connectedUser } = useContext(GlobalContext);
   const [additionalTextInput, setAdditionalTextInput] = useState("");
   const [isSuccessfullySent, setIsSuccessfullySent] = useState(undefined);
 
   function renderOrderProducts() {
     return cartProducts.map((product) => (
-      <OrderProduct key={product.name} product={product} onAdd={onAdd} onRemove={onRemove} />
+      <OrderProduct
+        key={product.name}
+        product={product}
+        onAdd={onAdd}
+        onRemove={onRemove}
+      />
     ));
   }
 
@@ -61,18 +67,13 @@ function Cart() {
     <div className="cartContainer">
       <div className="cartHeader">
         <div className="cartTitle">עגלת הקניות</div>
-        <Link to="/">
-          <div className="back">
-            <BackIcon height={30} width={30} />
-          </div>
-        </Link>
       </div>
       {isSuccessfullySent === undefined ? (
         <>
           {cartProducts?.length ? (
             <>
               {" "}
-              <div className="productsList">{renderOrderProducts()}</div>
+              <div className="OrderProductsList">{renderOrderProducts()}</div>
               <div className="additionalInfo">
                 <div className="additionalInfoTitle">
                   {`פרטים נוספים (אופציונלי):`}
