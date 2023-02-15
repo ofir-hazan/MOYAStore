@@ -12,11 +12,13 @@ import SuppliiersPage from "./pages/suppliers/suppliersPage";
 import AddProductPage from "./pages/addProduct/addProducr";
 import OrdersPage from "./pages/orders/orders";
 import { CartContextProvider } from "./Contexts/cartContext";
+import useSocket from "./customHooks/useSocket";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [catalogProducts, setCatalogProducts] = useState(products);
-  const { connectedUser, setActiveUsersAmt, socket } =
-    useContext(GlobalContext);
+  const { setActiveUsersAmt } = useContext(GlobalContext);
+  const { socket } = useSocket();
   useEffect(() => {
     fetch("http://localhost:3001/products/all")
       .then((res) => res.json())
@@ -26,7 +28,6 @@ function App() {
       .catch((err) => console.log(err));
 
     socket.on("signedIn", (amount) => {
-      console.log(amount);
       setActiveUsersAmt(amount);
     });
 
@@ -50,16 +51,48 @@ function App() {
                   </div>
                 }
               />
-              <Route index element={<Catalog products={catalogProducts} />} />
-              <Route path="/cart" element={<Cart />} />
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <Catalog products={catalogProducts} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="*" element={<div>wrong</div>} />
               <Route path="signIn" element={<SignIn />} />
               <Route path="signUp" element={<SignUp />} />
-              <Route path="suppliers" element={<SuppliiersPage />} />
-              <Route path="addProduct" element={<AddProductPage />} />
+              <Route
+                path="suppliers"
+                element={
+                  <ProtectedRoute>
+                    <SuppliiersPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="addProduct"
+                element={
+                  <ProtectedRoute>
+                    <AddProductPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="orders"
-                element={<OrdersPage catalogProducts={catalogProducts} />}
+                element={
+                  <ProtectedRoute>
+                    <OrdersPage catalogProducts={catalogProducts} />
+                  </ProtectedRoute>
+                }
               />
             </Routes>
           </div>

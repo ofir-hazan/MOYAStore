@@ -38,7 +38,7 @@ function Cart() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        uid: "DF857FE5shTIbyrQAUjjzTBcrR32",
+        uid: connectedUser.uid,
         products: cartProducts,
         additionalInfo: additionalTextInput,
         totalPrice: totalPrice(),

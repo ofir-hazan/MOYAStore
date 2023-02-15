@@ -1,10 +1,8 @@
 import { createContext, useState } from "react";
-import io from "socket.io-client";
 export const GlobalContext = createContext({});
 
-const socket = io('http://localhost:3001');
 const GlobalContextProvider = (props) => {
-  const [connectedUser, setConnectedUser] = useState(null);
+  const [connectedUser, setConnectedUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [catalogProducts, setCatalogProducts] = useState([]);
   const [activeUsersAmt, setActiveUsersAmt] = useState(0);
 
@@ -17,7 +15,6 @@ const GlobalContextProvider = (props) => {
         setCatalogProducts: setCatalogProducts,
         activeUsersAmt: activeUsersAmt, 
         setActiveUsersAmt: setActiveUsersAmt,
-        socket: socket
       }}
     >
       {props.children}
