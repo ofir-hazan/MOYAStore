@@ -12,7 +12,7 @@ function SignIn() {
     const [errorMessage, setErrorMessage] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { setConnectedUser } = useContext(GlobalContext);
+    const { connectedUser, setConnectedUser } = useContext(GlobalContext);
     const navigate = useNavigate();
 
     const handleRaiseAlert = (message) => {

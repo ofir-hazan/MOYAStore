@@ -14,17 +14,18 @@ function Navbar() {
   const classes = useStyles();
   const navigate = useNavigate();
   const notToShowInPages = ["/signIn", "/signUp"];
-  const { activeUsersAmt } = useContext(GlobalContext);
+  const { activeUsersAmt, connectedUser } = useContext(GlobalContext);
 
   const handleLogOut = () => {
     logout()
-    .then(() => {
-      navigate("/signIn")
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
+      .then(() => {
+        localStorage.removeItem("user");
+        navigate("/signIn");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return notToShowInPages.includes(window.location.pathname) ? (
     <></>
@@ -52,12 +53,18 @@ function Navbar() {
           <Link to="/orders" className={classes.link}>
             My orders
           </Link>
-          <Link to="/suppliers" className={classes.link}>
-            Suppliers
-          </Link>
-          <Link to="/addProduct" className={classes.link}>
-            Add product
-          </Link>
+          {connectedUser?.role === "admin" ? (
+            <>
+              <Link to="/suppliers" className={classes.link}>
+                Suppliers
+              </Link>
+
+              <Link to="/addProduct" className={classes.link}>
+                Add product
+              </Link>
+            </>
+          ) : null}
+
           {/* <Link to="/signIn" className={classes.link}>
             <LogoutIcon />
           </Link> */}
