@@ -25,7 +25,6 @@ function App() {
       .catch((err) => console.log(err));
 
     socket.on("signedIn", (amount) => {
-      console.log(amount);
       setActiveUsersAmt(amount);
     });
 
