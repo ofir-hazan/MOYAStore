@@ -18,7 +18,7 @@ function OrderProduct(props) {
   };
 
   return (
-    <div className="productContainer">
+    <div className="orderProductContainer">
       <div className="productDescription">
         <div className="productName">{name}</div>
         <div className="productDesc">{description}</div>

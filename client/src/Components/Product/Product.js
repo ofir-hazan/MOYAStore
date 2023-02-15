@@ -9,7 +9,7 @@ function Product(props) {
     <div className="productContainer">
       <div className="productDescription">
         <div className="productName">{name}</div>
-        <div className="productDesc">{description}</div>
+        {/* <div className="productDesc">{description}</div> */}
         <div className="productPrice">{`${price.toFixed(2)} ₪`}</div>
       </div>
       <div className="productPictureContainer" onClick={onAdd}>
