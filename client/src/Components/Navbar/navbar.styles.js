@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme) => ({
   navlinks: {
     display: "flex",
     alignSelf: "center",
-    flex: 1
+    flex: 1,
   },
   link: {
     textDecoration: "none",
@@ -31,15 +31,15 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   activeUsers: {
-    marginRight: "20px"
-  }
+    marginRight: "20px",
+  },
 }));
 
 export const appBarStyle = {
   display: "flex",
   background: "#8ea3af",
   overflow: "hidden",
-  // position: "fixed",
+  position: "fixed",
   top: "0",
-  // width: "100%",
+  width: "100%",
 };

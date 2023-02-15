@@ -8,7 +8,12 @@ import AddEditSuuplier from "./addEditSupplier";
 
 function SuppliiersPage() {
   const [suppliers, setSuppliers] = useState([]);
-  const [openAddPopup, setAddOpenPopup] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
+  const [popupSupplier, setPopupSupplier] = useState({
+    _id: "",
+    name: "",
+    location: "",
+  });
 
   useEffect(() => {
     fetch("http://localhost:3001/suppliers/all") //get suppliers data
@@ -42,25 +47,28 @@ function SuppliiersPage() {
       key={supplier._id}
       supplier={supplier}
       onDelete={() => deleteSupplier(supplier._id)}
+      onEdit={() => {
+        setPopupSupplier(supplier);
+        setOpenPopup(true);
+      }}
     />
   ));
 
   return (
-    <div className="suppliesrContainer">
-      <IconButton className="addBtn" onClick={() => setAddOpenPopup(true)}>
+    <div className="suppliersContainer">
+      <br />
+      <IconButton className="addBtn" onClick={() => setOpenPopup(true)}>
         <AddBusinessTwoToneIcon />
         <Typography variant="body1"> Add supplier</Typography>
       </IconButton>
       <br />
       <div className="list">{SuppliersList}</div>
-      <GenericPopup
-        isOpen={openAddPopup}
-        closePopup={() => setAddOpenPopup(false)}
-      >
-        <AddEditSuuplier //add supplier
-          name=""
-          location=""
-          onCancel={() => setAddOpenPopup(false)}
+      <GenericPopup isOpen={openPopup} closePopup={() => setOpenPopup(false)}>
+        <AddEditSuuplier
+          name={popupSupplier.name}
+          location={popupSupplier.location}
+          id={popupSupplier._id}
+          onCancel={() => setOpenPopup(false)}
         />
       </GenericPopup>
     </div>

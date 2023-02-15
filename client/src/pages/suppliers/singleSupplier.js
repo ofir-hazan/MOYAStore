@@ -12,7 +12,6 @@ import AddEditSuuplier from "./addEditSupplier";
 
 function SingleSupplierCard(props) {
   const { name, location, _id } = props.supplier;
-  const [openEditPopup, setOpenEditPopup] = useState(false);
   return (
     <Box sx={{ width: 250, height: 200, margin: 3 }}>
       <Card>
@@ -24,7 +23,7 @@ function SingleSupplierCard(props) {
             <Typography variant="body2">location: {location}</Typography>
           </CardContent>
           <CardActions>
-            <IconButton onClick={() => setOpenEditPopup(true)}>
+            <IconButton onClick={props.onEdit}>
               <EditTwoToneIcon />
             </IconButton>
             <IconButton onClick={props.onDelete}>
@@ -33,17 +32,6 @@ function SingleSupplierCard(props) {
           </CardActions>
         </React.Fragment>
       </Card>
-      <GenericPopup
-        isOpen={openEditPopup}
-        closePopup={() => setOpenEditPopup(false)}
-      >
-        <AddEditSuuplier //edit supplier
-          name={name}
-          location={location}
-          id={_id}
-          onCancel={() => setOpenEditPopup(false)}
-        />
-      </GenericPopup>
     </Box>
   );
 }
