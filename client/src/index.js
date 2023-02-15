@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import GlobalContextProvider from "./Contexts/GlobalContext";
+import SocketContextProvider from "./Contexts/SocketContext";
 import { Router } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <GlobalContextProvider>
-      <App />
+      <SocketContextProvider>
+        <App />
+      </SocketContextProvider>
     </GlobalContextProvider>
   </React.StrictMode>
 );

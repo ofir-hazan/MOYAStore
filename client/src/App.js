@@ -12,11 +12,12 @@ import SuppliiersPage from "./pages/suppliers/suppliersPage";
 import AddProductPage from "./pages/addProduct/addProducr";
 import OrdersPage from "./pages/orders/orders";
 import { CartContextProvider } from "./Contexts/cartContext";
+import useSocket from "./customHooks/useSocket";
 
 function App() {
   const [catalogProducts, setCatalogProducts] = useState(products);
-  const { connectedUser, setActiveUsersAmt, socket } =
-    useContext(GlobalContext);
+  const { connectedUser, setActiveUsersAmt } = useContext(GlobalContext);
+  const {socket} = useSocket();
   useEffect(() => {
     fetch("http://localhost:3001/products/all")
       .then((res) => res.json())
