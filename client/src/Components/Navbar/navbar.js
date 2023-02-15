@@ -9,22 +9,25 @@ import { useStyles, appBarStyle } from "./navbar.styles";
 import { logout } from "../../Firebase";
 import { GlobalContext } from "../../Contexts/GlobalContext";
 import { act } from "react-dom/test-utils";
+import Badge from "@mui/material/Badge";
+import { CartContext } from "../../Contexts/cartContext";
 
 function Navbar() {
   const classes = useStyles();
   const navigate = useNavigate();
   const notToShowInPages = ["/signIn", "/signUp"];
   const { activeUsersAmt } = useContext(GlobalContext);
+  const { cartProducts } = useContext(CartContext);
 
   const handleLogOut = () => {
     logout()
-    .then(() => {
-      navigate("/signIn")
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
+      .then(() => {
+        navigate("/signIn");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return notToShowInPages.includes(window.location.pathname) ? (
     <></>
@@ -47,7 +50,9 @@ function Navbar() {
             Home
           </Link>
           <Link to="/cart" className={classes.link}>
-            <ShoppingCartTwoToneIcon />
+            <Badge badgeContent={cartProducts.length}>
+              <ShoppingCartTwoToneIcon />
+            </Badge>
           </Link>
           <Link to="/orders" className={classes.link}>
             My orders

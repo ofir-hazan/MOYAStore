@@ -14,6 +14,10 @@ function SuppliiersPage() {
     name: "",
     location: "",
   });
+  const [isErrorMessage, setIsErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSuccessMessage, setIsSuccessMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3001/suppliers/all") //get suppliers data
@@ -71,6 +75,17 @@ function SuppliiersPage() {
           onCancel={() => setOpenPopup(false)}
         />
       </GenericPopup>
+      {/* <Message
+      {isErrorMessage && (
+        <Alert onClose={() => setIsErrorMessage(false)} severity="error">
+          {errorMessage}
+        </Alert>
+      )}
+      {isSuccessMessage && (
+        <Alert onClose={() => setIsSuccessMessage(false)} severity="success">
+          {successMessage}
+        </Alert>
+      )}/> */}
     </div>
   );
 }

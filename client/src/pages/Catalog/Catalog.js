@@ -45,13 +45,13 @@ function Catalog(props) {
             Watch statictics
           </ColorButton>
         )}
-        <div className="productsTitle">רשימת מוצרים</div>
+        <div className="productsTitle"> Products</div>
       </div>
       <div className="productsList">
         {products?.length ? (
           <> {renderProducts()}</>
         ) : (
-          <div className="catalogNoProducts">אין מוצרים בקטלוג!</div>
+          <div className="catalogNoProducts">Loading...</div>
         )}
       </div>
       <StatisticsDialog

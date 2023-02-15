@@ -66,7 +66,7 @@ function Cart() {
   return (
     <div className="cartContainer">
       <div className="cartHeader">
-        <div className="cartTitle">עגלת הקניות</div>
+        <div className="cartTitle">Cart </div>
       </div>
       {isSuccessfullySent === undefined ? (
         <>
@@ -76,11 +76,11 @@ function Cart() {
               <div className="OrderProductsList">{renderOrderProducts()}</div>
               <div className="additionalInfo">
                 <div className="additionalInfoTitle">
-                  {`פרטים נוספים (אופציונלי):`}
+                  {`More detailes (optional)`}
                 </div>
                 <textarea
                   className="additionalInfoText"
-                  placeholder="פרטים נוספים..."
+                  placeholder="More detailes ..."
                   onChange={onTextChange}
                   value={additionalTextInput}
                 />
@@ -92,14 +92,14 @@ function Cart() {
               />
             </>
           ) : (
-            <div className="cartNoProducts">אין מוצרים בעגלה!</div>
+            <div className="cartNoProducts">Your cart is empty!</div>
           )}
         </>
       ) : (
         <div className="cartNoProducts">
           {isSuccessfullySent
-            ? "ההזמנה נשלחה בהצלחה!"
-            : "מצטערים, חלה שגיאה :("}
+            ? "Your order has been sent successfully"
+            : "Sorry, there was a problem saving your order :("}
         </div>
       )}
     </div>
