@@ -26,7 +26,6 @@ function Catalog(props) {
   const [suppliers, setSuppliers] = useState([]);
   const [supFilterValue, setSupFilterValue] = useState("");
   const [maxRangeValue, setMaxRangeValue] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
   const [expandedProduct, setExpandedProduct] = useState();
 
   function renderProducts() {
