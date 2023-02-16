@@ -1,11 +1,13 @@
 import React from "react";
+import ExpandedProduct from "../../Components/ExpandedProduct/ExpandedProduct";
+import { useNavigate } from  'react-router-dom';
 
 function AddProductPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="products">
-      Add procuct page
-      <br />
-      to be continue...
+      <ExpandedProduct product = {{}} close={() => navigate('/')} />
     </div>
   );
 }

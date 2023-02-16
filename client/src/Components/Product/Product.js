@@ -3,11 +3,11 @@ import "./Product.css";
 import { ReactComponent as AddIcon } from "../../resources/add.svg";
 
 function Product(props) {
-  const { onAdd, product } = props;
+  const { onAdd, product, expand } = props;
   const { name, description, image, price } = product;
   return (
     <div className="productContainer">
-      <div className="productDescription">
+      <div className="productDescription" onClick={expand}>
         <div className="productName">{name}</div>
         {/* <div className="productDesc">{description}</div> */}
         <div className="productPrice">{`${price.toFixed(2)} ₪`}</div>
