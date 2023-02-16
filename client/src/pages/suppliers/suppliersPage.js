@@ -1,10 +1,11 @@
-import { IconButton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SingleSupplier from "./singleSupplier";
 import "./suppliersPage.css";
 import AddBusinessTwoToneIcon from "@mui/icons-material/AddBusinessTwoTone";
 import GenericPopup from "../../Components/popup/genericPopup";
 import AddEditSuuplier from "./addEditSupplier";
+import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
 
 function SuppliiersPage() {
   const [suppliers, setSuppliers] = useState([]);
@@ -13,6 +14,22 @@ function SuppliiersPage() {
     _id: "",
     name: "",
     location: "",
+  });
+  // const [isErrorMessage, setIsErrorMessage] = useState(false);
+  // const [errorMessage, setErrorMessage] = useState("");
+  // const [isSuccessMessage, setIsSuccessMessage] = useState(false);
+  // const [successMessage, setSuccessMessage] = useState("");
+
+  const ColorButton = styled(Button)({
+    color: "white",
+    backgroundColor: "#6cbaa9",
+    marginTop: "3%",
+    marginBottom: "1%",
+    marginLeft: "3%",
+    width: "15%",
+    "&:hover": {
+      backgroundColor: "#6cbaa9",
+    },
   });
 
   useEffect(() => {
@@ -23,7 +40,7 @@ function SuppliiersPage() {
         setSuppliers(data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [openPopup]);
 
   function deleteSupplier(supplierId) {
     console.log("delete" + supplierId);
@@ -34,7 +51,7 @@ function SuppliiersPage() {
       if (res.ok) {
         console.log("success");
         setSuppliers(
-          suppliers.filter((supplier) => supplier._id != supplierId)
+          suppliers.filter((supplier) => supplier._id !== supplierId)
         );
       } else {
         console.log("There was a problam");
@@ -56,12 +73,16 @@ function SuppliiersPage() {
 
   return (
     <div className="suppliersContainer">
-      <br />
-      <IconButton className="addBtn" onClick={() => setOpenPopup(true)}>
-        <AddBusinessTwoToneIcon />
-        <Typography variant="body1"> Add supplier</Typography>
-      </IconButton>
-      <br />
+      <ColorButton
+        className="addBtn"
+        onClick={() => {
+          setPopupSupplier({ name: "", location: "", id: "" });
+          setOpenPopup(true);
+        }}
+        startIcon={<AddBusinessTwoToneIcon />}
+      >
+        Add supplier
+      </ColorButton>
       <div className="list">{SuppliersList}</div>
       <GenericPopup isOpen={openPopup} closePopup={() => setOpenPopup(false)}>
         <AddEditSuuplier

@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./Catalog.css";
 import { styled } from "@mui/material/styles";
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import Slider from '@mui/material/Slider';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import Slider from "@mui/material/Slider";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import Product from "../../Components/Product/Product";
 import StatisticsDialog from "../../Components/StatisticsDialog/StatisticsDialog";
 import BarChartIcon from "@mui/icons-material/BarChart";
@@ -60,10 +60,10 @@ function Catalog(props) {
       }
     }
     return maxPrice;
-  }
+  };
 
   useEffect(() => {
-    setDisplayProducts(...catalogProducts)
+    setDisplayProducts(...catalogProducts);
     fetch("http://localhost:3001/suppliers/all")
       .then((res) => res.json())
       .then((data) => {
@@ -83,29 +83,52 @@ function Catalog(props) {
     let filteredProducts = [...catalogProducts];
 
     if (filterValue) {
-      filteredProducts = filteredProducts.filter((product) => product.name.toLowerCase().includes(filterValue.toLowerCase()));
+      filteredProducts = filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes(filterValue.toLowerCase())
+      );
     }
 
     if (catFilterValue) {
-      const category = categories.find((cat) => cat.name.toLowerCase().includes(catFilterValue.toLowerCase()));
-      filteredProducts = filteredProducts.filter((product) => product.categoryId === category?._id);
+      const category = categories.find((cat) =>
+        cat.name.toLowerCase().includes(catFilterValue.toLowerCase())
+      );
+      filteredProducts = filteredProducts.filter(
+        (product) => product.categoryId === category?._id
+      );
     }
 
     if (supFilterValue) {
-      const supplier = suppliers.find((sup) => sup.name.toLowerCase().includes(supFilterValue.toLowerCase()));
-      filteredProducts = filteredProducts.filter((product) => product.supplierId === supplier?._id);
+      const supplier = suppliers.find((sup) =>
+        sup.name.toLowerCase().includes(supFilterValue.toLowerCase())
+      );
+      filteredProducts = filteredProducts.filter(
+        (product) => product.supplierId === supplier?._id
+      );
     }
 
     if (maxRangeValue !== 0) {
-      filteredProducts = filteredProducts.filter((product) => product.price <= maxRangeValue);
+      filteredProducts = filteredProducts.filter(
+        (product) => product.price <= maxRangeValue
+      );
     }
 
     setDisplayProducts(filteredProducts);
-  }, [filterValue, catFilterValue, supFilterValue, maxRangeValue, catalogProducts]);
+  }, [
+    filterValue,
+    catFilterValue,
+    supFilterValue,
+    maxRangeValue,
+    catalogProducts,
+  ]);
 
   return (
     <div className="products">
-      {expandedProduct && <ExpandedProduct product={expandedProduct} close={() => setExpandedProduct()} />}
+      {expandedProduct && (
+        <ExpandedProduct
+          product={expandedProduct}
+          close={() => setExpandedProduct()}
+        />
+      )}
       <div className="productsHeader">
         {connectedUser?.role === ROLES.ADMIN && (
           <ColorButton
@@ -115,7 +138,7 @@ function Catalog(props) {
             Watch statictics
           </ColorButton>
         )}
-        <div className="productsTitle">Products</div>
+        <div className="productsTitle"> Products</div>
       </div>
       <div className="searchFilterContainer">
         <div>
@@ -124,7 +147,9 @@ function Catalog(props) {
             value={filterValue}
             onChange={(e, newValue) => setFilterValue(newValue)}
             options={catalogProducts.map((product) => product.name)}
-            renderInput={(params) => <TextField {...params} label="Search for an item..." />}
+            renderInput={(params) => (
+              <TextField {...params} label="Search for an item..." />
+            )}
           />
         </div>
         <div className="filterContainer">
@@ -134,7 +159,9 @@ function Catalog(props) {
             onChange={(e, newValue) => setSupFilterValue(newValue)}
             options={suppliers.map((supplier) => supplier.name)}
             sx={{ width: 200 }}
-            renderInput={(params) => <TextField {...params} label="Filter by supplier" />}
+            renderInput={(params) => (
+              <TextField {...params} label="Filter by supplier" />
+            )}
           />
           <div>
             <Box sx={{ width: 300 }}>
@@ -156,15 +183,18 @@ function Catalog(props) {
             onChange={(e, newValue) => setCatFilterValue(newValue)}
             options={categories.map((category) => category.name)}
             sx={{ width: 200 }}
-            renderInput={(params) => <TextField {...params} label="Filter by category" />}
+            renderInput={(params) => (
+              <TextField {...params} label="Filter by category" />
+            )}
           />
         </div>
       </div>
+
       <div className="productsList">
         {displayProducts?.length ? (
           <> {renderProducts()}</>
         ) : (
-          <div className="catalogNoProducts">No products available!</div>
+          <div className="catalogNoProducts">No products available</div>
         )}
       </div>
       <StatisticsDialog

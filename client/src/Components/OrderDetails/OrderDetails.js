@@ -92,7 +92,7 @@ function OrderDetails(props) {
   }
 
   function cancelEdit() {
-    console.log(originalProducts)
+    console.log(originalProducts);
     setProducts(originalProducts);
     setProductsToDelete([]);
     setEditMode(false);
@@ -100,7 +100,7 @@ function OrderDetails(props) {
 
   function saveEdit() {
     const requestOptions = {
-      method: "POST",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         products: products,

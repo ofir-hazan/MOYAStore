@@ -6,11 +6,11 @@ function OrderFooter(props) {
   return (
     <div className="orderFooterContainer">
       <div className="orderFooterTotal">
-        <div className="orderFooterTotalPriceDesc">סה״כ לתשלום: </div>
+        <div className="orderFooterTotalPriceDesc">Total: </div>
         <div className="orderFooterTotalPrice">{` ${price} ₪ `}</div>
         <div className="orderFooterLeft">
           <button className="orderFooterSend" onClick={props.onSend}>
-            שלח
+            Send
           </button>
         </div>
       </div>

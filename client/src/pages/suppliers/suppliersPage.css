@@ -3,9 +3,10 @@
   flex-direction: column;
 }
 
-.addBtn {
-  width: 20%;
-}
+/* .addBtn {
+  margin: 50%;
+  width: 15%;
+} */
 
 .list {
   display: flex;
@@ -13,6 +14,5 @@
   flex-wrap: wrap;
   align-items: center;
   align-self: center;
-  /* overflow-y: scroll; */
   overflow: auto;
 }
