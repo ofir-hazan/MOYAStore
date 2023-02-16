@@ -25,7 +25,7 @@ function addSupplier(name, location, closePopup) {
 function saveChanges(id, name, location, closePopup) {
   console.log("edit supplier: " + name + "  " + location);
   const requestOptions = {
-    method: "PUT",
+    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ _id: id, name: name, location: location }),
   };
@@ -34,7 +34,7 @@ function saveChanges(id, name, location, closePopup) {
     (res) => {
       if (res.ok) {
         console.log("success");
-        // closePopup();
+        closePopup();
       } else {
         console.log("There was a problam");
       }

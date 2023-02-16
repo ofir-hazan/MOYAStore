@@ -46,6 +46,7 @@ export const CartContextProvider = (props) => {
         cartProducts: cartProducts,
         onAdd: onAdd,
         onRemove: onRemove,
+        clearProducts: clearProducts,
       }}
     >
       {props.children}

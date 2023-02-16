@@ -35,9 +35,9 @@ exports.updateSupplier = async (req, res, next) => {
     .connect(process.env.DB_CONNECTION_STRING)
     .then(async () => {
       const updatedSupplier = req.body;
-      await Supplier.findOneAndUpdate(
-        { _id: req.params._id },
-        updatedSupplier
+      await Supplier.update(
+        { _id: updatedSupplier._id },
+        { name: updatedSupplier.name, location: updatedSupplier.location }
       ).then((resp) => {
         res.status(200).send(resp).end();
       });

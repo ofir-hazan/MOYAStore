@@ -46,6 +46,7 @@ function Cart() {
     };
     fetch("http://localhost:3001/orders/insert", requestOptions)
       .then((res) => {
+        console.log(res + " - " + res.ok);
         if (res.ok) {
           setIsSuccessfullySent(true);
           clearProducts();
