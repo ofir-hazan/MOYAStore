@@ -13,20 +13,20 @@ import { CartContext } from "../../Contexts/cartContext";
 import { GlobalContext } from "../../Contexts/GlobalContext";
 import Button from "@mui/material/Button";
 import { ROLES } from "../../resources/constants";
+import ExpandedProduct from "../../Components/ExpandedProduct/ExpandedProduct";
 
 function Catalog(props) {
   const { onAdd } = useContext(CartContext);
-  const { connectedUser } = useContext(GlobalContext);
-  const { products } = props;
+  const { connectedUser, catalogProducts } = useContext(GlobalContext);
   const [statsDialogOpen, setStatsDialogOpen] = useState(false);
   const [filterValue, setFilterValue] = useState("");
-  const [displayProducts, setDisplayProducts] = useState([]);
+  const [displayProducts, setDisplayProducts] = useState(catalogProducts);
   const [categories, setCategories] = useState([]);
   const [catFilterValue, setCatFilterValue] = useState("");
   const [suppliers, setSuppliers] = useState([]);
   const [supFilterValue, setSupFilterValue] = useState("");
   const [maxRangeValue, setMaxRangeValue] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [expandedProduct, setExpandedProduct] = useState();
 
   function renderProducts() {
     return displayProducts.map((product) => (
@@ -34,6 +34,7 @@ function Catalog(props) {
         key={product.id}
         product={product}
         onAdd={() => onAdd(product)}
+        expand={() => setExpandedProduct(product)}
       />
     ));
   }
@@ -52,17 +53,17 @@ function Catalog(props) {
   };
 
   const getMaxPrice = () => {
-    let maxPrice = products[0]?.price;
-    for (let index = 1; index < products.length; index++) {
-      if (products[index]?.price > maxPrice) {
-        maxPrice = products[index]?.price;
+    let maxPrice = catalogProducts[0]?.price;
+    for (let index = 1; index < catalogProducts.length; index++) {
+      if (catalogProducts[index]?.price > maxPrice) {
+        maxPrice = catalogProducts[index]?.price;
       }
     }
-    setMaxPrice(maxPrice);
+    return maxPrice;
   }
 
   useEffect(() => {
-    setDisplayProducts(...products)
+    setDisplayProducts(...catalogProducts)
     fetch("http://localhost:3001/suppliers/all")
       .then((res) => res.json())
       .then((data) => {
@@ -78,13 +79,12 @@ function Catalog(props) {
   }, []);
 
   useEffect(() => {
-    let allProducts = [...products];
-    let filteredProducts = [...allProducts];
     getMaxPrice();
+    let filteredProducts = [...catalogProducts];
 
     if (filterValue) {
       filteredProducts = filteredProducts.filter((product) => product.name.toLowerCase().includes(filterValue.toLowerCase()));
-    } 
+    }
 
     if (catFilterValue) {
       const category = categories.find((cat) => cat.name.toLowerCase().includes(catFilterValue.toLowerCase()));
@@ -101,10 +101,11 @@ function Catalog(props) {
     }
 
     setDisplayProducts(filteredProducts);
-  }, [filterValue, catFilterValue, supFilterValue, maxRangeValue, props.products]);
+  }, [filterValue, catFilterValue, supFilterValue, maxRangeValue, catalogProducts]);
 
   return (
     <div className="products">
+      {expandedProduct && <ExpandedProduct product={expandedProduct} close={() => setExpandedProduct()} />}
       <div className="productsHeader">
         {connectedUser?.role === ROLES.ADMIN && (
           <ColorButton
@@ -122,7 +123,7 @@ function Catalog(props) {
             freeSolo
             value={filterValue}
             onChange={(e, newValue) => setFilterValue(newValue)}
-            options={products.map((product) => product.name)}
+            options={catalogProducts.map((product) => product.name)}
             renderInput={(params) => <TextField {...params} label="Search for an item..." />}
           />
         </div>
@@ -132,17 +133,17 @@ function Catalog(props) {
             value={supFilterValue}
             onChange={(e, newValue) => setSupFilterValue(newValue)}
             options={suppliers.map((supplier) => supplier.name)}
-            sx={{width:200}}
+            sx={{ width: 200 }}
             renderInput={(params) => <TextField {...params} label="Filter by supplier" />}
           />
           <div>
-            <Box sx={{width:300}}>
+            <Box sx={{ width: 300 }}>
               <Typography id="input-slider" gutterBottom>
                 Filter by price range
               </Typography>
               <Slider
                 valueLabelDisplay="auto"
-                max={maxPrice}
+                max={getMaxPrice()}
                 value={maxRangeValue}
                 onChange={handleSliderChange}
                 aria-labelledby="input-slider"
@@ -154,7 +155,7 @@ function Catalog(props) {
             value={catFilterValue}
             onChange={(e, newValue) => setCatFilterValue(newValue)}
             options={categories.map((category) => category.name)}
-            sx={{width:200}}
+            sx={{ width: 200 }}
             renderInput={(params) => <TextField {...params} label="Filter by category" />}
           />
         </div>
@@ -169,7 +170,7 @@ function Catalog(props) {
       <StatisticsDialog
         open={statsDialogOpen}
         onClose={() => setStatsDialogOpen(false)}
-        products
+        catalogProducts
       />
     </div>
   );

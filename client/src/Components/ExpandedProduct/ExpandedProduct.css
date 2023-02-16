@@ -1,0 +1,20 @@
+
+.expandedProductRow {
+    display: flex;
+    padding-left: 8px;
+}
+
+.expandedProductRowTitle {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.expandedProductRowLabel {
+    display: flex;
+    align-items: center;
+}
+
+.expandedProductImageContainer {
+    display: flex;
+    align-items: center;
+}
