@@ -101,7 +101,7 @@ function Catalog(props) {
     }
 
     setDisplayProducts(filteredProducts);
-  }, [filterValue, catFilterValue, supFilterValue, maxRangeValue]);
+  }, [filterValue, catFilterValue, supFilterValue, maxRangeValue, props.products]);
 
   return (
     <div className="products">
