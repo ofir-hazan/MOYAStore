@@ -52,10 +52,10 @@ function Catalog(props) {
   };
 
   const getMaxPrice = () => {
-    let maxPrice = products[0].price;
+    let maxPrice = products[0]?.price;
     for (let index = 1; index < products.length; index++) {
-      if (products[index].price > maxPrice) {
-        maxPrice = products[index].price;
+      if (products[index]?.price > maxPrice) {
+        maxPrice = products[index]?.price;
       }
     }
     setMaxPrice(maxPrice);
@@ -63,7 +63,6 @@ function Catalog(props) {
 
   useEffect(() => {
     setDisplayProducts(...products)
-    getMaxPrice();
     fetch("http://localhost:3001/suppliers/all")
       .then((res) => res.json())
       .then((data) => {
@@ -81,6 +80,7 @@ function Catalog(props) {
   useEffect(() => {
     let allProducts = [...products];
     let filteredProducts = [...allProducts];
+    getMaxPrice();
 
     if (filterValue) {
       filteredProducts = filteredProducts.filter((product) => product.name.toLowerCase().includes(filterValue.toLowerCase()));
