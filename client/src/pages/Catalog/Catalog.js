@@ -53,16 +53,17 @@ function Catalog(props) {
   };
 
   const getMaxPrice = () => {
-    let maxPrice = catalogProducts[0].price;
+    let maxPrice = catalogProducts[0]?.price;
     for (let index = 1; index < catalogProducts.length; index++) {
-      if (catalogProducts[index].price > maxPrice) {
-        maxPrice = catalogProducts[index].price;
+      if (catalogProducts[index]?.price > maxPrice) {
+        maxPrice = catalogProducts[index]?.price;
       }
     }
     return maxPrice;
   }
 
   useEffect(() => {
+    setDisplayProducts(...catalogProducts)
     fetch("http://localhost:3001/suppliers/all")
       .then((res) => res.json())
       .then((data) => {
@@ -78,6 +79,7 @@ function Catalog(props) {
   }, []);
 
   useEffect(() => {
+    getMaxPrice();
     let filteredProducts = [...catalogProducts];
 
     if (filterValue) {
