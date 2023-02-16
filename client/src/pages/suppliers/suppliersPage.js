@@ -1,4 +1,3 @@
-import { IconButton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SingleSupplier from "./singleSupplier";
 import "./suppliersPage.css";
@@ -16,10 +15,10 @@ function SuppliiersPage() {
     name: "",
     location: "",
   });
-  const [isErrorMessage, setIsErrorMessage] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isSuccessMessage, setIsSuccessMessage] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  // const [isErrorMessage, setIsErrorMessage] = useState(false);
+  // const [errorMessage, setErrorMessage] = useState("");
+  // const [isSuccessMessage, setIsSuccessMessage] = useState(false);
+  // const [successMessage, setSuccessMessage] = useState("");
 
   const ColorButton = styled(Button)({
     color: "white",
@@ -41,7 +40,7 @@ function SuppliiersPage() {
         setSuppliers(data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [openPopup]);
 
   function deleteSupplier(supplierId) {
     console.log("delete" + supplierId);
@@ -52,7 +51,7 @@ function SuppliiersPage() {
       if (res.ok) {
         console.log("success");
         setSuppliers(
-          suppliers.filter((supplier) => supplier._id != supplierId)
+          suppliers.filter((supplier) => supplier._id !== supplierId)
         );
       } else {
         console.log("There was a problam");
@@ -76,7 +75,10 @@ function SuppliiersPage() {
     <div className="suppliersContainer">
       <ColorButton
         className="addBtn"
-        onClick={() => setOpenPopup(true)}
+        onClick={() => {
+          setPopupSupplier({ name: "", location: "", id: "" });
+          setOpenPopup(true);
+        }}
         startIcon={<AddBusinessTwoToneIcon />}
       >
         Add supplier
@@ -90,17 +92,6 @@ function SuppliiersPage() {
           onCancel={() => setOpenPopup(false)}
         />
       </GenericPopup>
-      {/* <Message
-      {isErrorMessage && (
-        <Alert onClose={() => setIsErrorMessage(false)} severity="error">
-          {errorMessage}
-        </Alert>
-      )}
-      {isSuccessMessage && (
-        <Alert onClose={() => setIsSuccessMessage(false)} severity="success">
-          {successMessage}
-        </Alert>
-      )}/> */}
     </div>
   );
 }

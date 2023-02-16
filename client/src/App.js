@@ -2,8 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Catalog from "./pages/Catalog/Catalog";
 import Cart from "./pages/Cart/Cart";
-import { products } from "./fakeData";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "./Contexts/GlobalContext";
 import SignUp from "./pages/SignInUp/SignUp";
 import SignIn from "./pages/SignInUp/SignIn";
@@ -16,9 +15,9 @@ import useSocket from "./customHooks/useSocket";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
-  const [catalogProducts, setCatalogProducts] = useState(products);
-  const { setActiveUsersAmt } = useContext(GlobalContext);
+  const { setActiveUsersAmt, shouldReload, setShouldReload, catalogProducts, setCatalogProducts } = useContext(GlobalContext);
   const { socket } = useSocket();
+
   useEffect(() => {
     fetch("http://localhost:3001/products/all")
       .then((res) => res.json())
@@ -35,6 +34,19 @@ function App() {
       socket.off("signedIn");
     };
   }, []);
+
+  useEffect(() => {
+    if (shouldReload) {
+      fetch("http://localhost:3001/products/all")
+        .then((res) => res.json())
+        .then((data) => {
+          setCatalogProducts(data);
+        })
+        .catch((err) => console.log(err));
+
+      setShouldReload(false);
+    }
+  }, [shouldReload]);
 
   return (
     <div className="App">
@@ -55,7 +67,7 @@ function App() {
                 index
                 element={
                   <ProtectedRoute>
-                    <Catalog products={catalogProducts} />
+                    <Catalog />
                   </ProtectedRoute>
                 }
               />
@@ -73,7 +85,7 @@ function App() {
               <Route
                 path="suppliers"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute admin={true}>
                     <SuppliiersPage />
                   </ProtectedRoute>
                 }
@@ -81,7 +93,7 @@ function App() {
               <Route
                 path="addProduct"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute admin={true}>
                     <AddProductPage />
                   </ProtectedRoute>
                 }
